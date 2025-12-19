@@ -9,6 +9,8 @@ import discord
 from discord import app_commands
 from discord.ext import commands
 from petpetgif import petpet as petgif
+from math import sqrt, ceil
+from easy_pil import Editor
 
 
 class Funny_Actions(commands.Cog):
@@ -91,16 +93,6 @@ class Funny_Actions(commands.Cog):
 
         ]
 
-    def is_owner_or_manage_messages():
-        async def predicate(interaction: discord.Interaction) -> bool:
-            if await interaction.client.is_owner(interaction.user):
-                return True
-            if interaction.user.guild_permissions.manage_messages:
-                return True
-            return False
-
-        return app_commands.check(predicate)
-
     @commands.Cog.listener()
     async def on_ready(self):
         print(f"{__name__} is charged up!")
@@ -109,9 +101,8 @@ class Funny_Actions(commands.Cog):
         name="petpet", description="Make a petpet gif of a member's avatar."
     )
     @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
-    @app_commands.user_install()
     async def petpet(
-        self, interaction: discord.Interaction, member: discord.User | None = None
+        self, interaction: discord.Interaction, member: discord.User or discord.Member
     ):
         if member is None:
             if interaction.guild:
@@ -133,12 +124,11 @@ class Funny_Actions(commands.Cog):
             file=discord.File(dest, filename=f"{member.id}_petpet.gif")
         )
 
-    @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
-    @app_commands.user_install()
     @app_commands.command(
         name="meow",
         description="Sends a random meow sound affect!",
     )
+    @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
     async def meow(self, interaction: discord.Interaction):
         files = [f for f in os.listdir(self.sfx_path) if f.lower().endswith(".mp3")]
 
@@ -158,7 +148,6 @@ class Funny_Actions(commands.Cog):
         description="Fetches a random meme using meme-api.com"
     )
     @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
-    @app_commands.user_install()
     async def meme(self, interaction: discord.Interaction):
         await interaction.response.defer()
 
@@ -203,26 +192,21 @@ class Funny_Actions(commands.Cog):
 
         await interaction.followup.send(title, embed=embed)
 
-
     @app_commands.command(name="cats", description="Grabs a random cat image")
     @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
-    @app_commands.user_install()
     async def cats(self, interaction: discord.Interaction, amount: Optional[int]):
         await interaction.response.defer()
-        if amount is None or amount < 1:
+        if not amount or amount < 1:
             amount = 1
         elif amount > 10:
-            await interaction.followup.send(
-                "Please keep it under 10 cats at a time! I don't have enough food to get more than 10 cats to pose... 😭",
-                ephemeral=True
-            )
+            await interaction.followup.send("Please keep it under 10 cats at a time! I don't have enough food to get more than 10 cats to pose... 😭")
             await asyncio.sleep(1.5)
-            await interaction.followup.send("Here, take a picture of me instead!", ephemeral=True)
+            await interaction.followup.send("Here, take a picture of me instead!")
             await asyncio.sleep(1)
             embed = discord.Embed(colour=discord.Colour.blue())
             embed.set_image(url=self.bot.user.display_avatar.url)
             embed.set_footer(text="Most beautiful cat alive... 😮‍💨")
-            await interaction.channel.send(embed=embed, ephemeral=True)
+            await interaction.channel.send(embed=embed)
             return
 
         await interaction.followup.send("Come here kitties!")
@@ -251,7 +235,6 @@ class Funny_Actions(commands.Cog):
         description="Slap a random member: server, DM, or group DM! (Inluding yourself >:))",
     )
     @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
-    @app_commands.user_install()
     async def slap(
         self,
         interaction: discord.Interaction,
@@ -298,7 +281,6 @@ class Funny_Actions(commands.Cog):
         name="8ball", description="Ask CatBot a question, and get an 8ball-like answer!"
     )
     @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
-    @app_commands.user_install()
     async def eight_ball(self, interaction: discord.Interaction, question: str):
         await interaction.response.defer()
         await interaction.followup.send(f'"{question}"?')
@@ -308,11 +290,17 @@ class Funny_Actions(commands.Cog):
     @app_commands.command(
         name="hello", description="Says hello back to the person who ran the command."
     )
+    @app_commands.allowed_contexts(guilds=True, dms=False, private_channels=True)
     async def hello(self, interaction: discord.Interaction):
         await interaction.response.send_message(
             f"{interaction.user.mention} {random.choice(self.hello_responses)}"
         )
 
-
+    @app_commands.command(
+            name="aki", description="Begins a game of Akinator."
+            )
+    @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
+    async def aki(self, interaction: discord.Interaction):
+        await interaction.response.send_message("Work in preogress! Sorry!")
 async def setup(bot):
     await bot.add_cog(Funny_Actions(bot))
