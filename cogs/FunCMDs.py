@@ -195,18 +195,18 @@ class Funny_Actions(commands.Cog):
     @app_commands.command(name="cats", description="Grabs a random cat image")
     @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
     async def cats(self, interaction: discord.Interaction, amount: Optional[int]):
-        await interaction.response.defer()
+        await interaction.response.defer(ephemeral=True)
         if not amount or amount < 1:
             amount = 1
         elif amount > 10:
-            await interaction.followup.send("Please keep it under 10 cats at a time! I don't have enough food to get more than 10 cats to pose... 😭")
+            await interaction.followup.send("Please keep it under 10 cats at a time! I don't have enough food to get more than 10 cats to pose... 😭", ephemeral=True)
             await asyncio.sleep(1.5)
-            await interaction.followup.send("Here, take a picture of me instead!")
+            await interaction.followup.send("Here, take a picture of me instead!", ephemeral=True)
             await asyncio.sleep(1)
             embed = discord.Embed(colour=discord.Colour.blue())
             embed.set_image(url=self.bot.user.display_avatar.url)
             embed.set_footer(text="Most beautiful cat alive... 😮‍💨")
-            await interaction.channel.send(embed=embed)
+            await interaction.followup.send(embed=embed, ephemeral=True)
             return
 
         await interaction.followup.send("Come here kitties!")
@@ -270,12 +270,12 @@ class Funny_Actions(commands.Cog):
 
     @app_commands.command(name="mimic", description="Mimics anything you say!")
     async def mimic(self, interaction: discord.Interaction, *, sentence: str):
-        await interaction.response.defer()
+        await interaction.response.defer(ephemeral=True)
         if await self.bot.is_owner(interaction.user) or interaction.user.guild_permissions.manage_messages:
             await interaction.delete_original_response()
             await interaction.channel.send(sentence)
         else:
-            await interaction.followup.send(sentence)
+            await interaction.followup.send(sentence, ephemeral=False)
 
     @app_commands.command(
         name="8ball", description="Ask CatBot a question, and get an 8ball-like answer!"

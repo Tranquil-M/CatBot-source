@@ -8,6 +8,7 @@ import discord
 from discord import app_commands
 from discord.ext import commands, tasks
 from dotenv import load_dotenv
+from discord.utils import get
 
 logging.basicConfig(level=logging.INFO)
 
@@ -44,8 +45,6 @@ async def sync(ctx):
     finally:
         await ctx.message.delete()
 
-
-@bot.tree.error
 async def on_app_command_error(
     interaction: discord.Interaction, error: app_commands.AppCommandError
 ):
