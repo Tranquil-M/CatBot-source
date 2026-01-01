@@ -136,7 +136,7 @@ class Funny_Actions(commands.Cog):
         chosen = random.choice(files)
         full_path = os.path.join(self.sfx_path, chosen)
 
-        file = discord.File(full_path, filename="meow.mp3")
+        file = discord.File(full_path, filename="meow.ogg")
 
         await interaction.response.send_message(
             random.choice(self.meow_dialogue), file=file
