@@ -9,8 +9,6 @@ import discord
 from discord import app_commands
 from discord.ext import commands
 from petpetgif import petpet as petgif
-from math import sqrt, ceil
-from easy_pil import Editor
 
 
 class Funny_Actions(commands.Cog):
@@ -90,7 +88,6 @@ class Funny_Actions(commands.Cog):
             "Fine, but this will be the last time! Unless I want to do it again!",
             "As you wish.",
             "I mean, it's your loss.",
-
         ]
 
     @commands.Cog.listener()
@@ -130,7 +127,7 @@ class Funny_Actions(commands.Cog):
     )
     @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
     async def meow(self, interaction: discord.Interaction):
-        files = [f for f in os.listdir(self.sfx_path) if f.lower().endswith(".mp3")]
+        files = [f for f in os.listdir(self.sfx_path) if f.lower().endswith(".ogg")]
 
         if not files:
             await interaction.response.send_message("No mp3 files found.")
@@ -141,11 +138,12 @@ class Funny_Actions(commands.Cog):
 
         file = discord.File(full_path, filename="meow.mp3")
 
-        await interaction.response.send_message(random.choice(self.meow_dialogue), file=file)
+        await interaction.response.send_message(
+            random.choice(self.meow_dialogue), file=file
+        )
 
     @app_commands.command(
-        name="meme",
-        description="Fetches a random meme using meme-api.com"
+        name="meme", description="Fetches a random meme using meme-api.com"
     )
     @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
     async def meme(self, interaction: discord.Interaction):
@@ -174,9 +172,11 @@ class Funny_Actions(commands.Cog):
 
         sfw_memes = [m for m in memes if not m.get("nsfw", False)]
         if not sfw_memes:
-            await interaction.followup.send("I don't know how this is possible, but I can't find a SINGLE SFW meme...")
+            await interaction.followup.send(
+                "I don't know how this is possible, but I can't find a SINGLE SFW meme..."
+            )
             return
-        
+
         random_meme = random.choice(sfw_memes)
         title = random_meme.get("title", "Untitled Meme")
         image_url = random_meme.get("url")
@@ -199,9 +199,14 @@ class Funny_Actions(commands.Cog):
         if not amount or amount < 1:
             amount = 1
         elif amount > 10:
-            await interaction.followup.send("Please keep it under 10 cats at a time! I don't have enough food to get more than 10 cats to pose... 😭", ephemeral=True)
+            await interaction.followup.send(
+                "Please keep it under 10 cats at a time! I don't have enough food to get more than 10 cats to pose... 😭",
+                ephemeral=True,
+            )
             await asyncio.sleep(1.5)
-            await interaction.followup.send("Here, take a picture of me instead!", ephemeral=True)
+            await interaction.followup.send(
+                "Here, take a picture of me instead!", ephemeral=True
+            )
             await asyncio.sleep(1)
             embed = discord.Embed(colour=discord.Colour.blue())
             embed.set_image(url=self.bot.user.display_avatar.url)
@@ -271,7 +276,10 @@ class Funny_Actions(commands.Cog):
     @app_commands.command(name="mimic", description="Mimics anything you say!")
     async def mimic(self, interaction: discord.Interaction, *, sentence: str):
         await interaction.response.defer(ephemeral=True)
-        if await self.bot.is_owner(interaction.user) or interaction.user.guild_permissions.manage_messages:
+        if (
+            await self.bot.is_owner(interaction.user)
+            or interaction.user.guild_permissions.manage_messages
+        ):
             await interaction.delete_original_response()
             await interaction.channel.send(sentence)
         else:
@@ -296,11 +304,11 @@ class Funny_Actions(commands.Cog):
             f"{interaction.user.mention} {random.choice(self.hello_responses)}"
         )
 
-    @app_commands.command(
-            name="aki", description="Begins a game of Akinator."
-            )
+    @app_commands.command(name="aki", description="Begins a game of Akinator.")
     @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
     async def aki(self, interaction: discord.Interaction):
         await interaction.response.send_message("Work in preogress! Sorry!")
+
+
 async def setup(bot):
     await bot.add_cog(Funny_Actions(bot))
