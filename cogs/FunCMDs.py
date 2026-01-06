@@ -101,6 +101,7 @@ class Funny_Actions(commands.Cog):
     async def petpet(
         self, interaction: discord.Interaction, member: discord.User or discord.Member
     ):
+        await interaction.response.defer()
         if member is None:
             if interaction.guild:
                 member = random.choice(interaction.guild.members)
@@ -117,7 +118,7 @@ class Funny_Actions(commands.Cog):
         petgif.make(src, dest)
         dest.seek(0)
 
-        await interaction.response.send_message(
+        await interaction.followup.send(
             file=discord.File(dest, filename=f"{member.id}_petpet.gif")
         )
 
@@ -127,10 +128,11 @@ class Funny_Actions(commands.Cog):
     )
     @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
     async def meow(self, interaction: discord.Interaction):
+        await interaction.response.defer()
         files = [f for f in os.listdir(self.sfx_path) if f.lower().endswith(".ogg")]
 
         if not files:
-            await interaction.response.send_message("No mp3 files found.")
+            await interaction.followup.send("No mp3 files found.")
             return
 
         chosen = random.choice(files)

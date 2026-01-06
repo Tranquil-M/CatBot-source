@@ -8,7 +8,6 @@ import discord
 from discord import app_commands
 from discord.ext import commands, tasks
 from dotenv import load_dotenv
-from discord.utils import get
 
 logging.basicConfig(level=logging.INFO)
 
@@ -44,6 +43,7 @@ async def sync(ctx):
         print("Sync failed:", e)
     finally:
         await ctx.message.delete()
+
 
 async def on_app_command_error(
     interaction: discord.Interaction, error: app_commands.AppCommandError
@@ -121,6 +121,7 @@ async def load():
         if filename.endswith(".py"):
             await bot.load_extension(f"cogs.{filename[:-3]}")
 
+
 @bot.command(name="reload")
 @commands.is_owner()
 async def reload(ctx):
@@ -134,6 +135,7 @@ async def reload(ctx):
         print("Failed to reload cogs:", e)
     finally:
         await ctx.message.delete()
+
 
 async def main():
     async with bot:
