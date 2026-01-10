@@ -132,13 +132,13 @@ class Funny_Actions(commands.Cog):
         files = [f for f in os.listdir(self.sfx_path) if f.lower().endswith(".ogg")]
 
         if not files:
-            await interaction.followup.send("No mp3 files found.")
+            await interaction.followup.send("No ogg files found.")
             return
 
         chosen = random.choice(files)
         full_path = os.path.join(self.sfx_path, chosen)
 
-        file = discord.File(full_path, filename="meow.ogg")
+        file = discord.File(full_path, filename="meow.mp3")
 
         await interaction.followup.send(
             random.choice(self.meow_dialogue), file=file
