@@ -140,7 +140,7 @@ class Funny_Actions(commands.Cog):
 
         file = discord.File(full_path, filename="meow.ogg")
 
-        await interaction.response.send_message(
+        await interaction.followup.send(
             random.choice(self.meow_dialogue), file=file
         )
 
