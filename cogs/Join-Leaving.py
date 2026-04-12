@@ -35,14 +35,14 @@ class Member_Join_Handler(commands.Cog):
 
         bg.text(
             (960, 620),
-            f"Welcome to {member.guild.name}, {member.name}!",
+            f"Welcome, {member.name}!",
             color="white",
             font=font_big,
             align="center",
         )
         bg.text(
             (960, 740),
-            f"You are our {member.guild.member_count}th member! yayyyy!",
+            f"You are our {member.guild.member_count}th member!",
             color="white",
             font=font_small,
             align="center",

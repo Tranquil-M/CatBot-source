@@ -276,6 +276,8 @@ class Funny_Actions(commands.Cog):
         await interaction.followup.send(embed=embed)
 
     @app_commands.command(name="mimic", description="Mimics anything you say!")
+    @app_commands.allowed_installs(guilds=True, users=True)
+    @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
     async def mimic(self, interaction: discord.Interaction, *, sentence: str):
         await interaction.response.defer(ephemeral=True)
         if (
