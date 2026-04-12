@@ -37,8 +37,8 @@ class Member_Join_Handler(commands.Cog):
             (960, 620),
             f"Welcome, {member.name}!",
             color="white",
-            stroke_width=2,
-            stroke_fill="black"
+            stroke_width=4,
+            stroke_fill="black",
             font=font_big,
             align="center",
         )
@@ -46,8 +46,8 @@ class Member_Join_Handler(commands.Cog):
             (960, 740),
             f"You are our {member.guild.member_count}th member!",
             color="white",
-            stroke_width=2,
-            stroke_fill="black"
+            stroke_width=4,
+            stroke_fill="black",
             font=font_small,
             align="center",
         )
