@@ -149,9 +149,9 @@ Before we can install this script, you must first create a discord application. 
 
 ## Python Pip Packages
 
-* [discord.py](https://discordpy.readthedocs.io/en/stable/)
-* [easy-pil](https://easy-pil.readthedocs.io/en/latest/)
-* [python-dotenv](https://pypi.org/project/python-dotenv/)
-* [pet-pet-gif](https://github.com/camprevail/pet-pet-gif)
+* [`discord.py`](https://discordpy.readthedocs.io/en/stable/)
+* [`easy-pil`](https://easy-pil.readthedocs.io/en/latest/)
+* [`python-dotenv`](https://pypi.org/project/python-dotenv/)
+* [`pet-pet-gif`](https://github.com/camprevail/pet-pet-gif)
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/I2I61Z3QJH)
