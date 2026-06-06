@@ -136,7 +136,7 @@ class Funny_Actions(commands.Cog):
             await interaction.followup.send(f"Sent a message to {member.mention}!")
             for i in range(0, 2):
                 await member.send("https://tenor.com/view/lock-in-locked-in-lock-tf-in-cat-cat-meme-gif-13335816645637017379")
-                await asyncio.sleep(15)
+                await asyncio.sleep(random.randint(15, 25))
         except Exception as e:
             await interaction.followup.send(f"Failed to send message: {e}")
 
