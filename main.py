@@ -71,6 +71,10 @@ async def on_app_command_error(
 async def on_app_command_completion(
     interaction: discord.Interaction, command: discord.app_commands.Command
 ):
+    if not interaction.guild:
+        print("Cannot create audit channel: Not in guild.")
+        return
+
     audit_channel = await get_or_create_audit_channel(interaction.guild)
     if audit_channel:
         embed = discord.Embed(
