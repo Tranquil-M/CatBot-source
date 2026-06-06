@@ -37,7 +37,7 @@ async def on_ready():
 @commands.is_owner()
 async def sync(ctx):
     if ctx.guild is None:
-          ctx.send("This command must be used in a guild, sorry!")
+          await ctx.send("This command must be used in a guild, sorry!")
           return
 
     try:
@@ -134,7 +134,7 @@ async def load():
 @commands.is_owner()
 async def reload(ctx):
     if ctx.guild is None:
-        ctx.send("This command must be used in a guild, sorry!")
+        await ctx.send("This command must be used in a guild, sorry!")
         return
 
     try:
