@@ -134,7 +134,7 @@ class Funny_Actions(commands.Cog):
         try:
             await member.send(f"{interaction.user.mention} wants you to:")
             await interaction.followup.send(f"Sent a message to {member.mention}!")
-            for i in range(0, 2):
+            for i in range(3):
                 await member.send("https://tenor.com/view/lock-in-locked-in-lock-tf-in-cat-cat-meme-gif-13335816645637017379")
                 await asyncio.sleep(random.randint(15, 25))
         except Exception as e:
