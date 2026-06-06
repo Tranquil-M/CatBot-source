@@ -36,6 +36,10 @@ async def on_ready():
 @bot.command(name="sync")
 @commands.is_owner()
 async def sync(ctx):
+    if ctx.guild is None:
+          ctx.send("This command must be used in a guild, sorry!")
+          return
+
     try:
         synced = await bot.tree.sync()
         print(f"Synced {len(synced)} commands.")
@@ -129,6 +133,10 @@ async def load():
 @bot.command(name="reload")
 @commands.is_owner()
 async def reload(ctx):
+    if ctx.guild is None:
+        ctx.send("This command must be used in a guild, sorry!")
+        return
+
     try:
         for filename in os.listdir("./cogs"):
             if filename.endswith(".py"):
