@@ -123,6 +123,25 @@ class Funny_Actions(commands.Cog):
         )
 
     @app_commands.command(
+        name="lockin", description="DM's a user and sends a cat gif that tells them to lock in."
+    )
+    @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
+    async def lockin(
+        self, interaction: discord.Interaction, member: discord.User or discord.Member
+    ):
+        await interaction.response.defer(ephemeral = True)
+
+        try:
+            await member.send(f"{interaction.user.mention} wants you to:")
+            await interaction.followup.send(f"Sent a message to {member.mention}!")
+            for i in range(0, 2):
+                await member.send("https://tenor.com/view/lock-in-locked-in-lock-tf-in-cat-cat-meme-gif-13335816645637017379")
+                await asyncio.sleep(15)
+        except Exception as e:
+            await interaction.followup.send(f"Failed to send message: {e}")
+
+
+    @app_commands.command(
         name="meow",
         description="Sends a random meow sound affect!",
     )
