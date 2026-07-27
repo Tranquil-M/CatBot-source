@@ -1,0 +1,3 @@
+[submodule "cogs/aki"]
+	path = cogs/aki
+	url = https://github.com/Tranquil-M/aki-discord.git
