@@ -327,11 +327,5 @@ class Funny_Actions(commands.Cog):
             f"{interaction.user.mention} {random.choice(self.hello_responses)}"
         )
 
-    @app_commands.command(name="aki", description="Begins a game of Akinator.")
-    @app_commands.allowed_contexts(guilds=True, dms=True, private_channels=True)
-    async def aki(self, interaction: discord.Interaction):
-        await interaction.response.send_message("Work in preogress! Sorry!")
-
-
 async def setup(bot):
     await bot.add_cog(Funny_Actions(bot))

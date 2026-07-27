@@ -128,7 +128,7 @@ async def load():
     for filename in os.listdir("./cogs"):
         if filename.endswith(".py"):
             await bot.load_extension(f"cogs.{filename[:-3]}")
-    await bot.load_extension("cogs/aki/akinatoror.py")
+    await bot.load_extension("cogs.aki.akinatoror")
 
 
 @bot.command(name="reload")
@@ -144,8 +144,8 @@ async def reload(ctx):
                 await bot.unload_extension(f"cogs.{filename[:-3]}")
                 await bot.load_extension(f"cogs.{filename[:-3]}")
                 print(f"{filename[:-3]} successfully reloaded!")
-        await bot.unload_extension("cogs/aki/akinatoror.py")
-        await bot.load_extension("cogs/aki/akinatoror.py")
+        await bot.unload_extension("cogs.aki.akinatoror")
+        await bot.load_extension("cogs.aki.akinatoror")
         print(f"akinatoror successfully reloaded!")
 
     except Exception as e:

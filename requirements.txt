@@ -2,3 +2,4 @@ discord.py
 easy-pil
 python-dotenv
 pet-pet-gif
+akipy
