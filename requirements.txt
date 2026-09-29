@@ -3,3 +3,4 @@ easy-pil
 python-dotenv
 pet-pet-gif
 akipy
+setuptools<82
